@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block nav %}
+<nav class="navbar navbar-expand-lg bg-dark" style="color: white;">
+    <div class="container-fluid" style="padding: 0 50px;">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if nav == 'technology' %} active {% endif %}" aria-current="page" href="{% url 'technology' %}">Technology news</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if nav == 'business' %} active {% endif %}" href="{% url 'business' %}">Business news</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <span>
+                    {{ date }} &ensp; &ensp; Temperature is: {{temp }} <span style="margin-top: -5px;">o</span>C
+                </span>
+            </div>
+            {% if isLogin %}
+            <span><a href="{% url 'profile' %}" class="nav-link btn btn-success" style="margin-left:10px;">Profile</a></span> 
+            <span><a href="{% url 'logout' %}" class="nav-link btn btn-danger" style="margin-left:10px;">Log Out</a></span> 
+            {% else %}
+            <span><a href="{% url 'login' %}" class="nav-link btn btn-warning" style="margin-left:10px;">Log In</a></span> 
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% endblock %} {% block body %}
+<div class="container" style="padding-bottom: 50px;">
+    <div class="row">
+        <div class="col-md-9">
+            <!-- iterator -->
+            {% for article in data %}
+            <div class="article">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="title">
+                            <h4>{{ article.1 }}</h4>
+                        </div>
+
+                        <div class="descript">
+                            <p>{{ article.2 }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img" style="width: 200px;">
+                            <img style="width: 100%;" src="{{ article.0 }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- end iterator -->
+
+            <!-- pagination -->
+            <div class="d-flex justify-content-center mt-5">
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if data.has_previous %}
+                            <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+                            <a class="btn btn-secondary" href="?page={{ data.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                        </span> {% if data.has_next %}
+                    <a class="btn btn-secondary" href="?page={{ data.next_page_number }}">next</a>
+                    <a class="btn btn-secondary" href="?page={{ data.paginator.num_pages }}">last &raquo;</a> {% endif %}
+                    </span>
+                </div>
+            </div>
+            <!-- end pagination  -->
+        </div>
+    </div>
+</div>
+{% endblock %}

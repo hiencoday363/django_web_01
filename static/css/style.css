@@ -1,0 +1,88 @@
+body {
+    background-color: #f8f9fa;
+    ;
+}
+
+.article {
+    padding: 20px 0;
+}
+
+p {
+    font-size: 14px;
+}
+
+a {
+    color: white;
+}
+
+.nav-item>.active {
+    color: blue;
+}
+
+.pagination a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+
+/* page login */
+
+.page-login {
+    background-image: url('https://ae01.alicdn.com/kf/HTB19rexNFXXXXXoXpXXq6xXFXXXd/Trang-Tr-Nh-G-i-C-m-Nude-Gi-y-D-n-T-ng-R-n.jpg') !important;
+    background-size: cover;
+    height: 100vh;
+}
+
+.form-login {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 150px;
+}
+
+
+/* page profile */
+
+.page-profile {
+    background-image: url('https://static6.depositphotos.com/1000794/643/i/950/depositphotos_6430212-stock-photo-rest-on-beach.jpg') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.layout-text {
+    color: white;
+    width: 80%;
+    height: 300px;
+    margin: 0 auto 20px;
+    overflow: auto;
+    scroll-behavior: smooth;
+    padding: 20px 15px 15px;
+    border: 1px solid gray;
+}
+
+.detail,
+.chatbot {
+    background-color: #f8f9fa;
+}
+
+.text-chat{
+    display: flex;
+    flex-direction: column;
+}
+.text-bot,
+.text-human {
+    max-width: 90%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.text-human {
+    background-color: blue;
+    color: white;
+}
+.text-bot {
+    background-color: rgba(128, 128, 128, 0.322);
+    color: black;
+}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock %} {% block body %}
+<div class="page-login">
+    <div class="container">
+        <div class="d-flex" style="justify-content: center;">
+            <div class="form-login">
+                <h2>Login to Chat</h2>
+                <br>
+                <form method="post">
+                    {% csrf_token %} {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                </form>
+                <hr>
+                <span class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create account</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Register Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <input type="text" required name="username" class="form-control" id="username" placeholder="Enter username">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="email" required name="email" class="form-control" id="email" placeholder="Enter email address">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" required name="password1" class="form-control" id="password1" placeholder="Enter password">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" required name="password2" class="form-control" id="password2" placeholder="Confirm password">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end modal -->
+{% endblock %}

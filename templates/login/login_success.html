@@ -1,0 +1,121 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock %} {% block body %}
+<div class="page-profile">
+    <div class="container" style="padding-bottom: 40px;">
+        <div class="row">
+            <div class="col-md-8 chatbot " style="padding-top:10px;">
+                <div style="text-align: center;">
+                    <h3>Chatbot !</h3>
+                </div>
+                <div class="layout-text">
+                    <div id="text-chat">
+                        <!-- <p style="text-align: right;"><span class="text-human">who are you ?</span></p> -->
+                    </div>
+                </div>
+                <div class="input-group flex-nowrap" style="width: 80%;margin:0 auto 20px;">
+                    <span class="input-group-text" id="micro"><i class="fas fa-microphone"></i></span>
+
+                    <input id="raw-text" value="" type="text" class="form-control" placeholder="Enter your message">
+
+                    <span class="input-group-text" id="btn-send"><i class="fas fa-paper-plane"></i></span>
+                </div>
+            </div>
+
+            <div class="col-md-4 detail" style="padding-top:10px;">
+                <h3>hello {{ user.username }}</h3>
+                <p>Email: {{ user.email }}</p>
+                <p>Date joined: {{ user.date_joined }}</p>
+                <hr>
+                <div class="d-flex" style="justify-content: space-between;">
+                    <div><a class="btn btn-success" href="{% url 'home' %}">Home</a></div>
+                    <div><a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // get value human text
+    function get_text() {
+        var text = $("#raw-text").val();
+        $('#raw-text').val('');
+        return text;
+    }
+
+    // send text to bot
+    function send_text() {
+        var text = get_text();
+        if (text != "") {
+            append_human_text(text);
+            bot_response(text)
+        }
+    }
+
+    // append value human-text
+    function append_human_text(text) {
+        var html = "<p style=\"display:flex;flex-direction:row-reverse;\"><span class=\"text-human\">" + text + "</span></p>";
+        $('#text-chat').append(html)
+    }
+
+    function append_bot_text(text) {
+        var html = "<p style=\"display:flex;\"><span class=\"text-bot\">" + text + "</span></p>";
+        $('#text-chat').append(html)
+    }
+
+    // func create random seconde
+    function randomNumber(min, max) {
+        const r = Math.random() * (max - min) + min
+        return Math.floor(r)
+    }
+
+    // bot response
+    function bot_response(text) {
+        $.get('get/', {
+            mess: text
+        }).done((data) => {
+            setTimeout(append_bot_text, randomNumber(2000, 8000), data)
+        })
+    }
+
+    // event when send mess
+    $("#btn-send").click(() => {
+        send_text()
+    })
+
+    $("#raw-text").keypress((e) => {
+        if (e.keyCode == 13) {
+            send_text()
+        }
+    })
+
+    // run when document ready
+    $(document).ready(() => {
+        var list_text_bot = [
+            "hi there !",
+            "I'm a pretty bot, created by HienCo",
+            "How can i help you ?",
+        ];
+        var count = 1000;
+        for (i of list_text_bot) {
+            setTimeout(append_bot_text, count, i);
+            count += 3000;
+        }
+    })
+
+    // voice recognize to text
+    function record() {
+        var recognition = new webkitSpeechRecognition();
+        recognition.lang = "vi-VN";
+
+        recognition.onresult = (event) => {
+            let res_text = event.results[0][0].transcript;
+            $("#raw-text").val(res_text)
+        }
+        recognition.start()
+    }
+
+    $("#micro").click(() => {
+        record()
+    })
+</script>
+{% endblock %}
