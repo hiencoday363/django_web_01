@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}List Post{% endblock %}
+{% block body %}
+
+<div class="container mt-3">
+    <div class="d-flex" style="justify-content:space-around">
+        <a href="/" class="btn btn-outline-primary">Home</a>
+        <a href="{% url 'postcar' %}" class="btn btn-outline-primary">Back to list</a>
+    </div>
+    <div class="col-6 mt-3">
+        <h3>Car's name: {{car.name}}</h3>
+        <h3>Brand's name: {{car.category.category_name}}</h3>
+        <img src="{{ car.img }}" alt="" class="img-fluid img-responsive my-3" style="height:200px">
+        <p>{{ car.description }}</p>
+    </div>
+
+</div>
+{% endblock  %}

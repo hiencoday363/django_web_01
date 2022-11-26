@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block title %} Register {% endblock %} {% block body %}
+
+<div class="page-login">
+    <div class="container">
+        <div class="d-flex" style="justify-content: center;">
+            <div class="form-login">
+                <h2>Register Account</h2>
+                <br>
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                        {% for item in error_list %}
+                        <div class="alert alert-danger">
+                            <p>{{ item }}</p>
+                        </div>
+                        {% endfor %}
+
+                        <div class="mb-3">
+                            <input type="text" required name="username" class="form-control" id="username" placeholder="Enter username">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="email" required name="email" class="form-control" id="email" placeholder="Enter email address">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="password" required name="password1" class="form-control" id="password1" placeholder="Enter password">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="password" required name="password2" class="form-control" id="password2" placeholder="Confirm password">
+                        </div>
+
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                <hr>
+
+                <a class="btn btn-outline-info" href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -16,42 +16,36 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "wz24!p!5i!=i2-ygz!=n#t&qzl=@tbw339$in+4rjd=t5@p5g!"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    ".herokuapp.com",
-    "127.0.0.1",
-    "*"
-]
+ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1", "*"]
 
 # Application definition
 
 INSTALLED_APPS = [
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # install app
-    'rest_framework',
-    'corsheaders',
-
+    "rest_framework",
+    'rest_framework.authtoken',
+    "corsheaders",
     # custom app
     "scrap.apps.ScrapConfig",
     "auth_acc.apps.AuthAccConfig",
-    'api_chat_video.apps.ApiChatVideoConfig'
+    "api_chat_video.apps.ApiChatVideoConfig",
+    "fileUpload.apps.FileuploadConfig",
+    "useRedis"
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-
-    'corsheaders.middleware.CorsMiddleware',
-
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -85,6 +79,26 @@ TEMPLATES = [
 WSGI_APPLICATION = "scrap_chatbot_django.wsgi.application"
 
 # Database
+
+# use sqlite
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
+    }
+}
+
+# use redis
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
+
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 """ using sql server
 DATABASES = {
@@ -103,18 +117,18 @@ DATABASES = {
 }
 """
 # using postgresql
-'''
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "learnwebdjango",
-        "USER": "sa",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
-'''
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "learnwebdjango",
+#         "USER": "sa",
+#         # "PASSWORD": "",
+#         # if run on ubuntu
+#         "PASSWORD": "root",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -147,16 +161,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
 # important
 STATIC_URL = "/static/"
-# important
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "/static"),
+    os.path.join(BASE_DIR, "static"),
     "/var/www/static/",
 ]
+
+# important: the way 2
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 LOGIN_REDIRECT_URL = "/login/profile/"

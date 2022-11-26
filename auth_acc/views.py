@@ -13,13 +13,19 @@ from auth_acc.forms import RegisterForm
 
 # Create your views here.
 
+# def CustomLogin(request):
+#   context = {}
+#   return render(request, "login/login.html", context)
+
 class SiteLogin(LoginView):
   template_name = 'login/login.html'
 
 def SiteRegister(request):
   form = RegisterForm(request.POST)
+
   if form.is_valid():
     data = form.cleaned_data
+
     new_user = User.objects.create_user(
             username=data['username'],
             email=data['email'],
@@ -28,8 +34,13 @@ def SiteRegister(request):
     login(request,user=new_user)
     return redirect('/')
   else:
-    print(form.error_messages)
-    return redirect('login')
+    context = {'error_list':list(form.error_messages.values())}
+
+    # print(context['error_list'])
+    return render(request, "login/register.html", context)
+    
+    # print(form.error_messages.values())
+    # return redirect('login')
 
 def SiteLogout(request):
   logout(request)

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}List Post{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="my-4">
+        <a class="btn btn-outline-primary" href="/">Home</a>
+    </div>
+
+    <table class="table table-striped my-4">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Brand's name</th>
+            <th scope="col">Car's name</th>
+            <th scope="col">img</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in carDetails %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{item.category.category_name}}</td>
+            <td>{{ item.name }}</td>
+            <td style="height:200px">
+                <img src={{item.img}} style="height:100%" alt="" class="img-fluid img-responsive"/>
+            </td>
+            <td>
+                <a class="btn btn-outline-primary" href="{{ item.id }}">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock  %}
