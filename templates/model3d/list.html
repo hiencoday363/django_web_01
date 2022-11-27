@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block title %}List Model{% endblock %} 
+{% block link_head %}
+<style>
+    .button-copy {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block nav%} {% include 'nav.html' %} {% endblock %} {% block body %}
+<div class="container" style="height: 100vh; margin: 0 50px; ">
+  <div class="row" style="height: 100%">
+    <div class="col-md-7" style="padding-top: 50px; margin-right:30px">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name OBJ</th>
+                <th scope="col">Link</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for item in list_file_uploads %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.file_name }}</td>
+                        <td class="button-copy" data-target="{{ item.ids }}">{{ item.myFile.url }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <div class="col-md-5" style="height: 100%; width: 300px">
+      <model-viewer
+        src="https://hiengv-resouce.herokuapp.com/media/upload/NeilArmstrong.glb"
+        alt="A 3D model of a car"
+        shadow-intensity="1"
+        camera-controls
+        touch-action="pan-y"
+        progress="0"
+        ar-tracking
+        disable-zoom
+        ar
+        style="height: 100%"
+      >
+      </model-viewer>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block link_script %}
+<script
+  type="module"
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+></script>
+
+<!-- Loads <model-viewer> for old browsers like IE11: -->
+<script
+  nomodule
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
+></script>
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
+
+<script>
+    $( document ).ready(function() {
+        const listButtonLinkModels = $(".button-copy")
+
+        Array.from(listButtonLinkModels).forEach((element) => {
+            element.addEventListener('click', myFunction);
+        });
+
+        function myFunction() {
+            let id = this.getAttribute('data-target')
+            let fullPath = `${window.location.href}/${id}`
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(fullPath).then(function(x) {
+              alert("Link copied to clipboard: " + id+" fullPath: "+fullPath);
+              window.open(fullPath)
+            });
+            this.removeEventListener('click', myFunction);
+        }
+    });
+</script>
+{% endblock %}

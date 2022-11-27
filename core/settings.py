@@ -18,7 +18,7 @@ SECRET_KEY = "wz24!p!5i!=i2-ygz!=n#t&qzl=@tbw339$in+4rjd=t5@p5g!"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1", "*"]
+ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1", 'localhost', '.vercel.app']
 
 # Application definition
 

@@ -10,6 +10,8 @@ urlpatterns = [
     path("login/", include("apps.auth_acc.urls")),
     # path("upload/", include("apps.fileUpload.urls")),
     path('redis/', include("apps.useRedis.urls")),
+    
+    path('model3d/', include("apps.fileUpload.urls")),
 
     path("api/", include("apps.api_chat_video.urls")),
 ]
