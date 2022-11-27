@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+echo '------------ start app ------------'
+python manage.py migrate
+python manage.py create_super_user
+
+exec "$@"

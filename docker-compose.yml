@@ -19,7 +19,7 @@ services:
     ports:
       - "80:80"
       - "5000:5000"
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    command: python manage.py runserver 0.0.0.0:80
 
   # mysql_hiengv:
   #   image: mysql:5.7

@@ -22,15 +22,20 @@ RUN apt-get update \
 COPY ./requirements.txt ./requirements.txt 
 RUN pip install -r ./requirements.txt 
 
+
+COPY ./entrypoint /entrypoint
+RUN sed -i 's/\r$//g' /entrypoint
+RUN chmod +x /entrypoint
+
 ADD . /app/
 
+ENTRYPOINT ["/entrypoint"]
 EXPOSE 80
-
 
 # ENV PORT=8000
 # CMD gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
 # CMD [ "uwsgi", "--http", ":80", "--module", "config.wsgi" ]
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT
+CMD python manage.py runserver 0.0.0.0:$PORT
 
 
 
