@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout, login
 import pyjokes
 
-from auth_acc.forms import RegisterForm
+from .forms import RegisterForm
 
 
 # Create your views here.

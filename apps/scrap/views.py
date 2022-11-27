@@ -3,7 +3,7 @@ from django.shortcuts import render
 from datetime import date
 import requests, json
 
-from scrap.bs4_scrap import *
+from .bs4_scrap import *
 
 # Create your views here.
 

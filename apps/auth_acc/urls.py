@@ -1,6 +1,6 @@
 from django.urls import path
 
-from auth_acc import views
+from apps.auth_acc import views
 
 urlpatterns = [
   path('', views.SiteLogin.as_view(), name='login'),

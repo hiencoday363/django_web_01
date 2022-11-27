@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  api_hiengv:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: api_hiengv
+    container_name: api_hiengv
+    # depends_on:
+    #   - mysql_hiengv
+    #   - redis_hiengv
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    networks:
+      local:
+    ports:
+      - "8888:8888"
+      - "5000:5000"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8888"
+
+  # mysql_hiengv:
+  #   image: mysql:5.7
+  #   container_name: recustomer_mysql
+  #   env_file:
+  #     - ./.env
+  #   ports:
+  #     - "3306:3306"
+  #   networks:
+  #     local:
+
+  # redis_hiengv:
+  #   image: redis:6.0
+  #   container_name: redis_hiengv
+  #   networks:
+  #     local:
+
+
+networks:
+  local:
+    driver: bridge

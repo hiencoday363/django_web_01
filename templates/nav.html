@@ -12,9 +12,9 @@
                 <li class="nav-item">
                     <a class="nav-link {% if nav == 'business' %} active {% endif %}" href="{% url 'business' %}">Business news</a>
                 </li>
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                     <a class="nav-link" href="{% url 'upload' %}">Upload File</a>
-                </li>
+                </li> {% endcomment %}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'postcar' %}">Post Car</a>
@@ -26,9 +26,9 @@
                 </span>
             </div>
             {% if isLogin %}
-            <span><a href="{% url 'profile' %}" class="nav-link btn btn-success" style="margin-left:10px;">Profile</a></span>
-            <span><a href="{% url 'logout' %}" class="nav-link btn btn-danger" style="margin-left:10px;">Log Out</a></span> {% else %}
-            <span><a href="{% url 'login' %}" class="nav-link btn btn-warning" style="margin-left:10px;">Log In</a></span> {% endif %}
+            <span><a href="{% url 'profile' %}" class="nav-link btn btn-link" style="margin-left:10px;color: white;">Profile</a></span>
+            <span><a href="{% url 'logout' %}" class="nav-link btn btn-link" style="margin-left:10px;color: white;">get away</a></span> {% else %}
+            <span><a href="{% url 'login' %}" class="nav-link btn btn-link" style="margin-left:10px;color: white;">welcome</a></span> {% endif %}
         </div>
     </div>
 </nav>

@@ -1,78 +1,36 @@
 # - if 'Got permission denied'
 # sudo usermod -a -G docker [user]
 # newgrp docker
+FROM python:3.8-slim-buster
 
-# build
-# docker build -t [name] .
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-# - remove image
-# docker rmi -f [id image]
-
-# list container
-# docker ps
-
-# start container
-# docker run -p [host port]:[container port] [name image]
-
-# - stop container docker 
-# docker container stop [name container]
-
-# - remove container
-# docker rm [name container]
-
-# - push heroku
-# docker tag [image_name] registry.heroku.com/[app_name]/[type: web]
-# docker push registry.heroku.com/[app_name]/[type: web]
-
-
-
-# Base Image 
-
-FROM python:3
-
-# create and set working directory
 RUN mkdir /app
 WORKDIR /app
 
-# Add current directory code to working directory
+RUN apt-get update \
+  # dependencies for building Python packages
+  && apt-get install -y build-essential \
+  # mysql dependencies
+  && apt-get install -y default-libmysqlclient-dev \
+  # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && rm -rf /var/lib/apt/lists/*
+
+# Requirements are installed here to ensure they will be cached.
+COPY ./requirements.txt ./requirements.txt 
+RUN pip install -r ./requirements.txt 
+
 ADD . /app/
 
-# set default environment variables
-# ENV PYTHONUNBUFFERED 1
-# ENV LANG C.UTF-8
-# ENV DEBIAN_FRONTEND=noninteractive 
-
-# set project environment variables
-# grab these via Python's os.environ
-# these are 100% optional here
-ENV PORT=8000
-
-# install Microsoft SQL Server requirements.
-
-RUN apt-get update -y && apt-get update \
-  && apt-get install -y --no-install-recommends curl gcc g++ gnupg unixodbc-dev
+EXPOSE 80
 
 
-# Install system dependencies
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#         tzdata \
-#         python3-setuptools \
-#         python3-pip \
-#         python3-dev \
-#         python3-venv \
-#         git \
-#         && \
-#     apt-get clean && \
-#     rm -rf /var/lib/apt/lists/*
+# ENV PORT=8000
+# CMD gunicorn scrap_chatbot_django.wsgi:application --bind 0.0.0.0:$PORT
+# CMD [ "uwsgi", "--http", ":80", "--module", "config.wsgi" ]
+CMD python manage.py runserver 0.0.0.0:8888
 
 
-# install environment dependencies
-# RUN pip3 install --upgrade pip 
-# RUN pip3 install pipenv
-
-# Install project dependencies
-RUN pip install -r requirements.txt
-
-EXPOSE 8888
-CMD gunicorn scrap_chatbot_django.wsgi:application --bind 0.0.0.0:$PORT
 

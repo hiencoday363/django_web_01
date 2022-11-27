@@ -6,12 +6,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("scrap.urls")),
-    path("login/", include("auth_acc.urls")),
-    path("upload/", include("fileUpload.urls")),
-    path('redis/', include("useRedis.urls")),
+    path("", include("apps.scrap.urls")),
+    path("login/", include("apps.auth_acc.urls")),
+    # path("upload/", include("apps.fileUpload.urls")),
+    path('redis/', include("apps.useRedis.urls")),
 
-    path("api/", include("api_chat_video.urls")),
+    path("api/", include("apps.api_chat_video.urls")),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

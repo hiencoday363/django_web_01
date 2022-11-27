@@ -34,11 +34,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     "corsheaders",
     # custom app
-    "scrap.apps.ScrapConfig",
-    "auth_acc.apps.AuthAccConfig",
-    "api_chat_video.apps.ApiChatVideoConfig",
-    "fileUpload.apps.FileuploadConfig",
-    "useRedis"
+    "apps.scrap",
+    "apps.auth_acc",
+    "apps.api_chat_video",
+    "apps.fileUpload",
+    "apps.useRedis"
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,7 @@ MIDDLEWARE = [
 # ]
 CORS_ORIGIN_ALLOW_ALL = True
 
-ROOT_URLCONF = "scrap_chatbot_django.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "scrap_chatbot_django.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 
@@ -99,53 +99,22 @@ DATABASES = {
 #     }
 # }
 
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-""" using sql server
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'WebDjangoLearn',
-        'HOST': 'databasehienco.cidw3wkwqevk.us-east-1.rds.amazonaws.com',
-        'USER': 'hien363',
-        'PASSWORD': 'hien0362363616',
-        'PORT': '1433',
-
-        'OPTIONS': {
-            'driver': 'SQL Server Native Client 11.0',
-        },
-    }
-}
-"""
-# using postgresql
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "learnwebdjango",
-#         "USER": "sa",
-#         # "PASSWORD": "",
-#         # if run on ubuntu
-#         "PASSWORD": "root",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
 ]
 
 # Internationalization

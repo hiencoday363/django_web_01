@@ -6,9 +6,16 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scrap_chatbot_django.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
         from django.core.management import execute_from_command_line
+        import ptvsd
+        from loguru import logger
+        if os.environ.get('RUN_MAIN') or os.environ.get('WERKZEUG_RUN_MAIN'):
+            ptvsd.enable_attach(address=('0.0.0.0', 5000), redirect_output=True)
+        print('Attached!')
+        logger.info('-------------Attached-------------')
+        
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
