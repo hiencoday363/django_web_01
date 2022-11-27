@@ -30,7 +30,7 @@ EXPOSE 80
 # ENV PORT=8000
 # CMD gunicorn scrap_chatbot_django.wsgi:application --bind 0.0.0.0:$PORT
 # CMD [ "uwsgi", "--http", ":80", "--module", "config.wsgi" ]
-CMD python manage.py runserver 0.0.0.0:8888
+CMD python manage.py runserver 0.0.0.0:80
 
 
 

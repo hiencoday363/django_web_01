@@ -1,0 +1,5 @@
+build:
+  docker:
+    app: dockerfile
+run:
+  app: python manage.py runserver 0.0.0.0:80

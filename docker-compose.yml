@@ -17,9 +17,9 @@ services:
     networks:
       local:
     ports:
-      - "8888:8888"
+      - "80:80"
       - "5000:5000"
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8888"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:80"
 
   # mysql_hiengv:
   #   image: mysql:5.7
