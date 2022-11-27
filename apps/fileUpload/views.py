@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 from .forms import FileUpload
 from .models import file_upload
@@ -52,6 +53,7 @@ class ListModelView(TemplateView):
 class DetailModelView(TemplateView):
     template_name = 'model3d/detail.html'
 
+    @xframe_options_exempt
     def get(self, request, pk, **kwargs):
         file = file_upload.objects.filter(pk=pk).first()
         # check ext
