@@ -28,9 +28,9 @@ EXPOSE 80
 
 
 # ENV PORT=8000
-CMD gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
+# CMD gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
 # CMD [ "uwsgi", "--http", ":80", "--module", "config.wsgi" ]
-# CMD python manage.py runserver 0.0.0.0:80
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT
 
 
 
