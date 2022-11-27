@@ -1,1 +1,1 @@
-web: gunicorn scrap_chatbot_django.wsgi
+web: gunicorn core.wsgi
