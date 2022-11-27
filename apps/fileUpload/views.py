@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from .forms import FileUpload
 from .models import file_upload
@@ -62,3 +65,21 @@ class DetailModelView(TemplateView):
             "url_file": file.myFile.url
         }
         return render(request, self.template_name, context=context)
+
+
+class GetIdFileAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        files = file_upload.objects.all()
+        # check ext
+        if not files:
+            return Response({'error': "nothing"},status=400)
+        
+        ext_granted = ['glb', 'gltf']
+        for item in files:
+            ext_file = item.myFile.url.split('.')[-1]
+            if ext_file in ext_granted:
+                return Response(item.ids)
+        
+        return Response({'error': "nothing"},status=400)
